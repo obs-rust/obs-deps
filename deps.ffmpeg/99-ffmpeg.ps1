@@ -1,8 +1,8 @@
 param(
     [string] $Name = 'FFmpeg',
-    [string] $Version = '8.1.2',
+    [string] $Version = '8.1.3',
     [string] $Uri = 'https://github.com/FFmpeg/FFmpeg.git',
-    [string] $Hash = "38b88335f99e76ed89ff3c93f877fdefce736c13",
+    [string] $Hash = "1041abdc962f4cc4f394aa8de9dc5236c0c3b9e7",
     [array] $Targets = @('x64', 'arm64'),
     [array] $Patches = @(
         @{
@@ -11,7 +11,7 @@ param(
         }
         @{
             PatchFile = "${PSScriptRoot}/patches/FFmpeg/0002-libaomenc-presets-Windows.patch"
-            HashSum = "cec898b957fc289512094fc2c4e6a61d6872f716e4a643fb970c599a453a33f4"
+            HashSum = "50996b242b705a2f2abf6215b59a2b8489eeb600103b30b367b9f1ce29d52bb0"
         }
     )
 )
