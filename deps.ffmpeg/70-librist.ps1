@@ -56,14 +56,25 @@ function Configure {
     $VisualStudioData = Find-VisualStudio
     $VisualStudioId = ($VisualStudioData.DisplayName -split ' ')[-1]
 
+    # Use the Mbed TLS built by 60-mbedtls.ps1 instead of the copy bundled with librist.
+    # The static mbedcrypto library needs bcrypt for its entropy source.
+    $OutputPath = $script:ConfigData.OutputPath -replace '\\', '/'
+    @(
+        '[built-in options]'
+        "c_args = ['-I${OutputPath}/include']"
+        "c_link_args = ['-L${OutputPath}/lib', '-lbcrypt']"
+    ) | Set-Content -Path "mbedtls-${Target}.txt"
+
     $Options = @(
         '--buildtype', "$($ConfigStrings[$Configuration])"
         '--backend', "vs${VisualStudioId}"
         '--prefix', "$($script:ConfigData.OutputPath)"
         '--cross-file', "windows-${Target}.txt"
+        '--cross-file', "mbedtls-${Target}.txt"
         '-Duse_mbedtls=true'
         '-Dbuiltin_cjson=true'
-        '-Dbuiltin_mbedtls=true'
+        '-Dbuiltin_mbedtls=false'
+        '-Dfallback_builtin=false'
         '-Dtest=false'
         '-Dbuilt_tools=false'
     )
