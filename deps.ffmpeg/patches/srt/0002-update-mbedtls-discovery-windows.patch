@@ -1,6 +1,6 @@
---- ./CMakeLists.txt	2024-05-29 15:18:33
-+++ ./CMakeLists.txt	2024-05-29 15:18:20
-@@ -352,8 +352,13 @@
+--- ./CMakeLists.txt
++++ ./CMakeLists.txt
+@@ -392,8 +392,13 @@
  		if ("${SSL_LIBRARY_DIRS}" STREQUAL "")
  			set(MBEDTLS_PREFIX "${CMAKE_PREFIX_PATH}" CACHE PATH "The path of mbedtls")
  			find_package(MbedTLS REQUIRED)
@@ -14,9 +14,9 @@
 +				set (SSL_LIBRARIES  ${MBEDTLS_LIBRARIES})
 +			endif()
  		endif()
- 		if ("${SSL_LIBRARIES}" STREQUAL "")
- 			set (SSL_LIBRARIES  mbedtls mbedcrypto)
-@@ -361,10 +365,12 @@
+ 		if (WIN32)
+ 			set (SSL_LIBRARIES ${SSL_LIBRARIES} bcrypt)
+@@ -404,10 +409,12 @@
  		message(STATUS "SSL enforced mbedtls: -I ${SSL_INCLUDE_DIRS} -l;${SSL_LIBRARIES}")
  
  		foreach(LIB ${SSL_LIBRARIES})
