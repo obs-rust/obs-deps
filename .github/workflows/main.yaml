@@ -602,6 +602,8 @@ jobs:
     name: Create and upload release
     runs-on: ubuntu-24.04
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
     needs: [ffmpeg-package-universal, ffmpeg-windows-build, macos-package-universal, macos-qt6-package, windows-build, windows-qt6-package]
     defaults:
       run:
